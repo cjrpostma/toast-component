@@ -1,9 +1,9 @@
 import React from "react";
 
 import Button from "../Button";
+import ToastShelf from "../ToastShelf";
 
 import styles from "./ToastPlayground.module.css";
-import ToastShelf from "../ToastShelf";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 const DEFAULT_VARIANT = VARIANT_OPTIONS[0];
@@ -14,8 +14,8 @@ function ToastPlayground() {
   const [variant, setVariant] = React.useState(DEFAULT_VARIANT);
 
   const handleDismissToast = React.useCallback(
-    (id) => {
-      const nextToasts = toasts.filter((t) => t.id !== id);
+    (idToRemove) => {
+      const nextToasts = toasts.filter((t) => t.id !== idToRemove);
       setToasts(nextToasts);
     },
     [toasts]

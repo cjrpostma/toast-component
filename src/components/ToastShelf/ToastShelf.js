@@ -4,7 +4,6 @@ import Toast from "../Toast";
 import styles from "./ToastShelf.module.css";
 
 function ToastShelf({ handleDismissToast, toasts }) {
-  console.log({ toasts });
   return (
     <ol className={styles.wrapper}>
       {toasts.map((toast) => {
