@@ -10,7 +10,7 @@ const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 const DEFAULT_VARIANT = VARIANT_OPTIONS[0];
 
 function ToastPlayground() {
-  const { addToast, handleDismissToast, toasts } =
+  const { addToast, handleDismissAllToasts, handleDismissToast, toasts } =
     React.useContext(ToastContext);
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState(DEFAULT_VARIANT);
@@ -25,6 +25,18 @@ function ToastPlayground() {
     addToast({ message, variant });
     resetForm();
   }
+
+  React.useEffect(() => {
+    function handleEscapeKeyDown(e) {
+      if (e.key === "Escape") {
+        handleDismissAllToasts();
+      }
+    }
+
+    window.addEventListener("keydown", handleEscapeKeyDown);
+
+    return () => window.removeEventListener("keydown", handleEscapeKeyDown);
+  }, [handleDismissAllToasts]);
 
   return (
     <div className={styles.wrapper}>

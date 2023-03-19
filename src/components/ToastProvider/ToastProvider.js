@@ -22,8 +22,14 @@ function ToastProvider({ children }) {
     [toasts]
   );
 
+  const handleDismissAllToasts = React.useCallback(() => {
+    setToasts([]);
+  }, []);
+
   return (
-    <ToastContext.Provider value={{ addToast, handleDismissToast, toasts }}>
+    <ToastContext.Provider
+      value={{ addToast, handleDismissAllToasts, handleDismissToast, toasts }}
+    >
       {children}
     </ToastContext.Provider>
   );
