@@ -3,6 +3,7 @@ import React from "react";
 import Button from "../Button";
 import { ToastContext } from "../ToastProvider/ToastProvider";
 import ToastShelf from "../ToastShelf";
+import { useEscapeKey } from "../../hooks/useEscapeKey/useEscapeKey";
 
 import styles from "./ToastPlayground.module.css";
 
@@ -12,6 +13,7 @@ const DEFAULT_VARIANT = VARIANT_OPTIONS[0];
 function ToastPlayground() {
   const { addToast, handleDismissAllToasts, handleDismissToast, toasts } =
     React.useContext(ToastContext);
+  useEscapeKey(handleDismissAllToasts);
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState(DEFAULT_VARIANT);
 
@@ -25,18 +27,6 @@ function ToastPlayground() {
     addToast({ message, variant });
     resetForm();
   }
-
-  React.useEffect(() => {
-    function handleEscapeKeyDown(e) {
-      if (e.key === "Escape") {
-        handleDismissAllToasts();
-      }
-    }
-
-    window.addEventListener("keydown", handleEscapeKeyDown);
-
-    return () => window.removeEventListener("keydown", handleEscapeKeyDown);
-  }, [handleDismissAllToasts]);
 
   return (
     <div className={styles.wrapper}>
